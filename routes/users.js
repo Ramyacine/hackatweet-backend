@@ -38,7 +38,6 @@ router.post('/signup', (req, res) => {
   });
 });
 
-
 //route de connection du user :
 router.post('/signin', (req, res) => {
   if (!checkBody(req.body, ['username', 'password'])) {
@@ -55,21 +54,16 @@ router.post('/signin', (req, res) => {
   });
 });
 
-
-// router.get('/canBookmark/:token', (req, res) => {
-//   User.findOne({ token: req.params.token }).then(data => {
-//     if (data) {
-//       res.json({ result: true, canBookmark: data.canBookmark });
-//     } else {
-//       res.json({ result: false, error: 'User not found' });
-//     }
-//   });
-// });
-
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
+//afficher le user :
+router.get("/:token", (req, res) => {
+  User.findOne({ token: req.params.token })
+  .then((user) => {
+    res.json({
+      firstname: user.firstname,
+      username: user.username,
+      token: user.token,
+    });
+  });
+});
 
 module.exports = router;
-
